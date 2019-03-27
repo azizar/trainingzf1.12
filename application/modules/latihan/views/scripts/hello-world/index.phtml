@@ -1,0 +1,63 @@
+<h3>Biodata Mahasiswa :</h3>
+<br/>
+
+<script>
+	function getData(){
+		$('#form').submit();
+	}
+</script>
+
+<form method="POST" id="form" name="form">
+	<table class="table">
+	<input type="hidden" name="id" id="id" value="<?php echo $this->student['idNama'];?>">
+	<tr>
+		<th>Nama</th>
+		<td><input type="text" name="nama" id="nama" value="<?php echo $this->student['nama']?>"></td></tr>
+	<tr>
+		<th>NIM</th>
+		<td><input type="text" name="nimreg" id="nimreg"></td></tr>
+	<tr>
+		<td>Alamat</td>
+		<td><textarea type="textarea" name="alamat" id="alamat" value="<?php echo $this->student['alamat'];?>"></textarea></td>
+	</tr>
+	<tr>
+		<td>Tempat Lahir</td>
+		<td><input type="text" name="tempat" id="tempat" value="<?php echo $this->student['tempat_lahir'];?>"></td>
+	</tr>
+	
+	<tr>
+		<td>Tanggal Lahir</td>
+		<td><input type="date" name="tanggal" id="tanggal" value="<?php echo $this->student['tanggal_lahir'];?>"></td>
+	</tr>
+	</table>
+	<p>Cari Berdasarkan NIK</p>
+		<input type="text" name="nim" id="nim" value="<?php echo $this->data['nim'];?>">
+		<input type="submit" value="Search" name="Search">
+	<h3>Data dipilih :</h3>
+	<select name="idNama" onchange="getData()">
+		<option value="">Silahkan Pilih</option>		
+<?php foreach($this->listnama as $value){ ?>
+			<option value="<?php echo $value['idNama']?>"><?php echo $value['nim']." - ".$value['nama']?>
+		<?php } ?>
+	</select><br/>
+	<input type="submit" value="Save" name="Save">
+	<input type="submit" value="Delete" name="Delete">
+	<input type="submit" value="Cancel" name="Cancel">
+</form>
+<br/>
+<table class="table">
+	<tr>
+		<th>NIM</th>
+		<th>Nama</th>
+		<th>Alamat</th>
+		<th>Tempat, Tanggal Lahir</th>
+	</tr>
+	<?php foreach($this->namalist as $value){ ?>
+	<tr>
+		<td><?php echo $value['nim'] ?></td>
+		<td><?php echo $value['nama'] ?></td>
+		<td><?php echo $value['alamat'] ?></td>
+		<td><?php echo $value['tempat_lahir'].', '.$value['tanggal_lahir'] ?></td>
+	</tr>
+	<?php } ?>
+</table>
