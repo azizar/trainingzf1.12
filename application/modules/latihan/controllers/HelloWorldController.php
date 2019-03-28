@@ -1,13 +1,15 @@
-<?php 
+<?php
 
 class Latihan_HelloWorldController extends Base_Base {
-	
+
 	function indexAction() {
-		
+		//Ekstend dari model
 		$dbName = new Latihan_Model_DbTable_Nama();
-				
+		$form = new Latihan_Form_SearchMhs();
+		$this->view->form = $form;
+		
 		if($this->_request->isPost()) {
-		$larrformData = $this->_request->getPost();
+			$larrformData = $this->_request->getPost();
 			if (isset($larrformData['Save'])) {
 				if ($larrformData['id']=='') {
 					$dbName->insertData(array(
@@ -16,7 +18,7 @@ class Latihan_HelloWorldController extends Base_Base {
 							'tempat_lahir' => $larrformData['tempat'],
 							'tanggal_lahir' => $larrformData['tanggal'],
 							'nim' => $larrformData['nimreg']
-						));
+					));
 				} else {
 					$dbName->updateData(array(
 							'nama' => $larrformData['nama'],
@@ -24,7 +26,7 @@ class Latihan_HelloWorldController extends Base_Base {
 							'tempat_lahir' => $larrformData['tempat'],
 							'tanggal_lahir' => $larrformData['tanggal'],
 							'nim' => $larrformData['nimreg']
-						), $larrformData['id']);
+					), $larrformData['id']);
 				}
 			}else if (isset($larrformData['Delete'])){
 				$dbName->deleteData($larrformData['idNama']);
@@ -33,18 +35,18 @@ class Latihan_HelloWorldController extends Base_Base {
 			} else if (isset($larrformData['Search'])){
 				$nim = $larrformData['nim'];
 				$this ->view->listnama = $dbName->getNim($nim);
-				
+
 			}else {
 				$id = $larrformData['idNama'];
-				$this ->view->student = $dbName->getById($id);
+				$this->view->student = $dbName->getById($id);
 				//echo var_dump($this ->view->student);exit;
 			}
 		}
-				
+
 		$this->view->namalist = $dbName->getAllData();
-		
+
 	}
-	
+
 }
 
 ?>
